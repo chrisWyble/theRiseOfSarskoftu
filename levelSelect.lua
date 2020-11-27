@@ -27,7 +27,7 @@ levelTwoText:setFillColor( 1, 0, 0 )
 levelThreeText:setFillColor( 1, 0, 0 )
 levelFourText:setFillColor( 1, 0, 0 )
 
-
+-- TODO: put objects in groups
 
 local myBox1 = display.newRect(160, 340, 320, 320)
 local myBox2 = display.newRect(645, 340, 320, 320)
