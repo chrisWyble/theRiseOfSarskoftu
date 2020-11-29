@@ -1,3 +1,4 @@
+local projectile = require('projectile')
 local player = {tag='player'}
 
 local running_frames = {
@@ -39,9 +40,8 @@ function player:new (o)    --constructor
     setmetatable(o, self)
     self.__index = self
     if o.x and o.y then
-        print(o.x)
         self:spawn(o)
-        self:move(o)
+        self:keyboard_input(o)
     end
     return o;
 end
@@ -50,58 +50,89 @@ function player:spawn(o)
     self = o
     self.shape = display.newSprite(running, running_sequence);
     self.shape:setSequence('stand')
-    print(self.x)
-    print(self.y)
     self.shape.x = self.x
     self.shape.y = self.y
+    self.shape.dir = 1 -- 1 = right ; -1 = left
     self.shape.pp = self  -- parent
     self.shape.tag = self.tag 
     physics.addBody(self.shape, 'dynamic', {friction=0.0, bounce=0})
     self.shape.isFixedRotation = true
-end
 
-function player:move(o)
-    self = o
     local function onGround(self, event)
         if event.phase == 'began' then 
             self.jumptoggle = true
             
         end
     end
+
+    self.shape.collision = onGround
+    self.shape:addEventListener('collision')
+end
+
+function player:moveRight(phase)
+    if phase == 'down' then 
+        if self.shape.dir == -1 then 
+            self.shape:scale(-1,1)
+            self.shape.dir = 1
+        end
+        self.shape:setSequence('running')
+        self.shape:play()
+        self.shape:setLinearVelocity(50, currentYV)
+    else 
+        self.shape:setLinearVelocity(0,currentYV)
+        self.shape:setSequence('stand')
+    end
+end
+
+function player:moveLeft(phase)
+    if phase == 'down' then
+        if self.shape.dir == 1 then 
+            self.shape:scale(-1,1)
+            self.shape.dir = -1
+        end
+        self.shape:setSequence('running')
+        self.shape:play()
+        self.shape:setLinearVelocity(-50, currentYV)
+    else
+        self.shape:setLinearVelocity(0,currentYV)
+        self.shape:setSequence('stand')
+    end
+end
+
+function player:jump()
+    if self.shape.jumptoggle then
+        self.shape.jumptoggle = false
+        self.shape:setSequence('jump')
+        self.shape:play()
+        self.shape:setLinearVelocity(currentXV, -200)
+    end
+end
+
+function player:shoot()
+    bullet = projectile:new({x=self.shape.x, y=self.shape.y, dir=self.shape.dir})
+end
+
+function player:keyboard_input(o)
+    self = o
+
     local function keyboard(event)
         currentXV, currentYV = self.shape:getLinearVelocity()
         if event.keyName == "w" and event.phase == 'down' then
-            if self.shape.jumptoggle then
-                self.shape.jumptoggle = false
-                self.shape:setSequence('jump')
-                self.shape:play()
-                self.shape:setLinearVelocity(currentXV, -200)
-            end
+            self:jump()
         end
-        if event.keyName == "d" and event.phase == 'down' then
-            self.shape:setSequence('running')
-            self.shape:play()
-            self.shape:setLinearVelocity(50, currentYV)
+        if event.keyName == "d" then
+            self:moveRight(event.phase)
         end
-        if event.keyName == "d" and event.phase == 'up' then
-            self.shape:setLinearVelocity(0,currentYV)
-            self.shape:setSequence('stand')
+        if event.keyName == "a"  then
+            self:moveLeft(event.phase)
         end
-        if event.keyName == "a" and event.phase == 'down' then
-            self.shape:scale(-1,1)
-            self.shape:setSequence('running')
-            self.shape:play()
-            self.shape:setLinearVelocity(-50, currentYV)
-        end
-        if event.keyName == "a" and event.phase == 'up' then
-            self.shape:scale(-1,1)
-            self.shape:setLinearVelocity(0,currentYV)
-            self.shape:setSequence('stand')
+        if event.keyName == "space" and event.phase == 'down' then
+            self:shoot()
         end
     end
-    self.shape.collision = onGround
-    self.shape:addEventListener('collision')
+
     Runtime:addEventListener("key", keyboard)
 end
+
 
 return player

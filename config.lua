@@ -7,8 +7,8 @@ application =
 {
 	content =
 	{
-		width = 800, -- These values are abitrirty
-		height = 1400, --
+		width = 200, -- These values are abitrirty
+		height = 300, --
 		scale = "letterbox",
 		fps = 60,
 		

@@ -21,34 +21,46 @@ local sceneGroup = self.view
 
 local selectGroup = display.newGroup()
 
-local levelOneText = display.newText("1", 160, 280, native.systemFont, 60)
-local levelTwoText = display.newText("2", 660, 280, native.systemFont, 60)
-local levelThreeText = display.newText("3", 160, 980, native.systemFont, 60)
-local levelFourText = display.newText("4", 660, 980, native.systemFont, 60)
+squaureSize = math.sqrt(display.contentWidth*display.contentHeight)/5
+deltax = display.contentWidth/4
+startx = 0 + deltax/2
+starty = display.contentHeight/2
 
-levelOneText:setFillColor( 1, 0, 0 )
-levelTwoText:setFillColor( 1, 0, 0 )
-levelThreeText:setFillColor( 1, 0, 0 )
-levelFourText:setFillColor( 1, 0, 0 )
-
-
-local myBox1 = display.newRect(160, 340, 320, 320)
-local myBox2 = display.newRect(645, 340, 320, 320)
-local myBox3 = display.newRect(160, 1040, 320, 320)
-local myBox4 = display.newRect(645, 1040, 320, 320)
-
--- We could chunck this code in for loops for less lines
--- I'm just being a little lazy rn
+local myBox1 = display.newRect(startx, starty, squaureSize, squaureSize)
+local myBox2 = display.newRect(startx + deltax, starty, squaureSize, squaureSize)
+local myBox3 = display.newRect(startx + deltax*2, starty, squaureSize, squaureSize)
+local myBox4 = display.newRect(startx + deltax*3, starty, squaureSize, squaureSize)
 
 myBox1:setFillColor( 0.2, 1, 1)
 myBox2:setFillColor( 0.2, 1, 1)
 myBox3:setFillColor( 0.2, 1, 1)
 myBox4:setFillColor( 0.2, 1, 1)
 
+myBox1.strokeWidth = 3
+myBox2.strokeWidth = 3
+myBox3.strokeWidth = 3
+myBox4.strokeWidth = 3
+
+myBox1:setStrokeColor(0.5,0.5,1)
+myBox2:setStrokeColor(0.5,0.5,1)
+myBox3:setStrokeColor(0.5,0.5,1)
+myBox4:setStrokeColor(0.5,0.5,1)
+
 selectGroup:insert(myBox1)
 selectGroup:insert(myBox2)
 selectGroup:insert(myBox3)
 selectGroup:insert(myBox4)
+
+local levelOneText = display.newText("1", myBox1.x, myBox1.y, native.systemFont, 60)
+local levelTwoText = display.newText("2", myBox2.x, myBox2.y, native.systemFont, 60)
+local levelThreeText = display.newText("3", myBox3.x, myBox3.y, native.systemFont, 60)
+local levelFourText = display.newText("4", myBox4.x, myBox4.y, native.systemFont, 60)
+
+levelOneText:setFillColor( 0.2, 0.5, 1 )
+levelTwoText:setFillColor( 0.2, 0.5, 1 )
+levelThreeText:setFillColor( 0.2, 0.5, 1)
+levelFourText:setFillColor( 0.2, 0.5, 1 )
+
 selectGroup:insert(levelOneText)
 selectGroup:insert(levelTwoText)
 selectGroup:insert(levelThreeText)
