@@ -25,14 +25,16 @@ function scene:create( event )
     physics.start()
 
     local floor = platform:new({x=display.contentCenterX, y=display.actualContentHeight, w=display.actualContentWidth, h=20})
-    local land = platform:new({x=100, y=150, w=50, h=5})
-    local land = platform:new({x=180, y=100, w=50, h=5})
-    local land = platform:new({x=110, y=40, w=50, h=5})
+    local land1 = platform:new({x=100, y=150, w=50, h=5})
+    local land2 = platform:new({x=180, y=100, w=50, h=5})
+    local land3 = platform:new({x=110, y=40, w=50, h=5})
 
     sceneGroup:insert(pauseBtn)
     
     stageGroup:insert(floor.shape)
-    stageGroup:insert(land.shape)
+    stageGroup:insert(land1.shape)
+    stageGroup:insert(land2.shape)
+    stageGroup:insert(land3.shape)
  
     sceneGroup:insert(stageGroup)
 
@@ -42,6 +44,9 @@ function scene:create( event )
 
     pauseBtn:addEventListener( "tap", myTap )
 
+    guy = player:new({x=10, y=160})
+    sceneGroup:insert(guy.shape)
+    
 end
 
 -- "scene:show()"
@@ -53,7 +58,6 @@ local phase = event.phase
 if ( phase == "will" ) then
     -- Called when the scene is still off screen (but is about to come on screen).
 elseif ( phase == "did" ) then
-    guy = player:new({x=10, y=160})
 
     -- Called when the scene is now on screen.
     -- Insert code here to make the scene come alive.
@@ -80,7 +84,8 @@ end
 function scene:destroy( event )
 
 local sceneGroup = self.view
-
+sceneGroup:removeSelf()
+sceneGroup = nil
 -- Called prior to the removal of scene's view ("sceneGroup").
 -- Insert code here to clean up the scene.
 -- Example: remove display objects, save state, etc.
