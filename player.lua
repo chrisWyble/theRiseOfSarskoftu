@@ -149,3 +149,10 @@ return player
             -- print(k)
             -- end
             -- print(event.other.tag)
+
+-- TODO:
+-- add health counter
+-- add score? 
+-- make better sprites
+-- remove and delete items when scene is destroyed
+-- add bad guys
