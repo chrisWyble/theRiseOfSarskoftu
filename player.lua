@@ -1,5 +1,9 @@
 local projectile = require('projectile')
+local score = require('score')
+local playerHealth = require('playerHealth')
 local player = {tag='player'}
+
+
 
 local running_frames = {
         frames = {
@@ -66,6 +70,10 @@ function player:spawn(o)
             
             elseif event.other.tag == 'projectile' then  -- if hit by a projectile
                 -- get shot
+
+            elseif event.other.tag == 'enemy' then  -- if hit by a enemy
+                score.add(-10)
+                playerHealth.add(-1)
             end 
         end
     end

@@ -4,6 +4,7 @@ local platform = require('platform')
 local player = require('player')
 local enemy = require('enemy')
 local score = require( "score" )
+local playerHealth = require('playerHealth')
 
 local scene = composer.newScene()
 
@@ -50,13 +51,26 @@ function scene:create( event )
 
     local scoreText = score.init(
 {
-    fontSize = 20,
+    fontSize = 10,
     --font = "CoolCustomFont.ttf",
-    x = display.contentCenterX,
-    y = 30,
-    maxDigits = 7,
+    x = 20,
+    y = 5,
+    maxDigits = 4,
     leadingZeros = true
 })
+    sceneGroup:insert(scoreText)
+
+
+    local playerHealthText = playerHealth.init(
+{
+    fontSize = 10,
+    --font = "CoolCustomFont.ttf",
+    x = 200,
+    y = 5,
+    maxDigits = 1,
+    leadingZeros = true
+})
+    sceneGroup:insert(playerHealthText)
 
     guy = player:new({x=10, y=160})
     sceneGroup:insert(guy.shape)

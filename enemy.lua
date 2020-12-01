@@ -1,4 +1,6 @@
 local projectile = require('projectile')
+local score = require('score')
+local playerHealth = require('playerHealth')
 local enemy = {tag='enemy'}
 --[[ 
 local running_frames = {
@@ -59,7 +61,7 @@ function enemy:spawn(o)
     self.shape.pp = self
     self.shape.tag = self.tag 
     self.shape:setFillColor(0,1,0)
-    physics.addBody(self.shape, 'dynamic', {density=50, friction=10.0, bounce=1}) 
+    physics.addBody(self.shape, 'dynamic', {density=50, friction=100, bounce=1}) 
     self.shape.isFixedRotation = true
 
     local function collisionHandler(self, event)   -- collision detection
@@ -71,6 +73,8 @@ function enemy:spawn(o)
             elseif event.other.tag == 'projectile' then  -- if hit by a projectile
                 if health == 1 then
                     self:removeSelf()
+                    score.add( 100 )
+                    score.save()
                 end
                 health = health - 1
                 self:setFillColor(1-health/initHealth,(health)/initHealth,0)
@@ -82,7 +86,7 @@ function enemy:spawn(o)
 end
 
 
-function enemy:moveRight(phase)  -- phase is boolean, true means start, false means stop
+--[[ function enemy:moveRight(phase)  -- phase is boolean, true means start, false means stop
     if phase then 
         if self.shape.dir == -1 then 
             self.shape:scale(-1,1)  --scale -1,1 causes flipping over y axis
@@ -110,7 +114,7 @@ function enemy:moveLeft(phase)  -- phase is boolean, true means start, false mea
         self.shape:setLinearVelocity(0, currentYV)
         --self.shape:setSequence('stand')
     end
-end
+end 
 
 
 
@@ -122,7 +126,7 @@ function enemy:jump()
         self.shape:play()
         self.shape:setLinearVelocity(currentXV, -200)
     end
-end
+end]]
 
 function enemy:shoot()
     bullet = projectile:new({x=self.x, y=self.y, dir=self.dir})  -- create a new bullet at enemy position
@@ -133,7 +137,7 @@ function enemy:keyboard_input(o)
     self = o
     local function keyboard(event)  -- handle keyboard input for testing
         currentXV, currentYV = self.shape:getLinearVelocity()  -- global set the current x and y velocity
-        local phase = phases[event.phase]
+        --[[ local phase = phases[event.phase]
         if event.keyName == "w" and event.phase == 'down' then
             self:jump()
         end
@@ -145,7 +149,7 @@ function enemy:keyboard_input(o)
         end
         if event.keyName == "space" and event.phase == 'down' then
             self:shoot()
-        end
+        end ]]
     end
 
     Runtime:addEventListener("key", keyboard)
