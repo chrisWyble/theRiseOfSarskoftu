@@ -2,6 +2,7 @@ local composer = require("composer")
 local physics = require('physics')
 local platform = require('platform')
 local player = require('player')
+local enemy = require('enemy')
 local scene = composer.newScene()
 
 ---------------------------------------------------------------------------------
@@ -35,7 +36,7 @@ function scene:create( event )
     stageGroup:insert(land1.shape)
     stageGroup:insert(land2.shape)
     stageGroup:insert(land3.shape)
- 
+
     sceneGroup:insert(stageGroup)
 
     function myTap( event ) 
@@ -46,6 +47,9 @@ function scene:create( event )
 
     guy = player:new({x=10, y=160})
     sceneGroup:insert(guy.shape)
+
+    badGuy = enemy:new({x=100,y=120,w=20,h=20}) 
+    sceneGroup:insert(badGuy.shape)
     
 end
 

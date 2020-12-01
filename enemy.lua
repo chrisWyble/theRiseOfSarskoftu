@@ -1,6 +1,6 @@
 local projectile = require('projectile')
-local player = {tag='player'}
-
+local enemy = {tag='enemy'}
+--[[ 
 local running_frames = {
         frames = {
             { x = 0, y = 0, width = 16, height = 32}, --frame 1 : standing
@@ -32,55 +32,59 @@ local running_sequence = {
         time = 1000,
         loopCount = 1
     }
-}
+} ]]
 
 local phases = {down = true, up = false, began = true, ended = false}
 
-function player:new (o)    --constructor
+function enemy:new (o)    --constructor
     o = o or {} 
     setmetatable(o, self)
     self.__index = self
-    if o.x and o.y then
+    if o.x and o.y and o.w and o.h then
         self:spawn(o)
-        self:keyboard_input(o)
     end
     return o;
 end
 
-function player:spawn(o)
+function enemy:spawn(o)
     self = o
-    self.shape = display.newSprite(running, running_sequence);
-    self.shape:setSequence('stand')
+    self.shape = display.newRect(self.x, self.y, self.w,self.h);
+    --self.shape = display.newSprite(running, running_sequence);
+    --self.shape:setSequence('stand')
     self.shape.x = self.x
     self.shape.y = self.y
-    self.shape.dir = 1 -- 1 means player facing right ; -1 means player facing left
+    self.shape.r = self.r
+    self.shape.dir = -1 -- 1 means enemy facing right ; -1 means enemy facing left
     self.shape.pp = self
     self.shape.tag = self.tag 
-    physics.addBody(self.shape, 'dynamic', {density=10, friction=0.0, bounce=0}) --friction is 0 so that velocity is constant without needing updated, projectiles have density of 0 so they have minimal impact on player sliding
+    self.shape:setFillColor(0,1,0)
+    physics.addBody(self.shape, 'dynamic', {density=50, friction=10.0, bounce=1}) 
     self.shape.isFixedRotation = true
 
     local function collisionHandler(self, event)   -- collision detection
         if event.phase == 'began' then 
             if event.other.tag == 'platform' then  -- if landed on a platform
                 self.jumptoggle = true
+                
             
             elseif event.other.tag == 'projectile' then  -- if hit by a projectile
-                -- get shot
+                self:removeSelf()
+                
             end 
         end
     end
-
     self.shape.collision = collisionHandler
     self.shape:addEventListener('collision')
 end
 
-function player:moveRight(phase)  -- phase is boolean, true means start, false means stop
+
+function enemy:moveRight(phase)  -- phase is boolean, true means start, false means stop
     if phase then 
         if self.shape.dir == -1 then 
             self.shape:scale(-1,1)  --scale -1,1 causes flipping over y axis
             self.shape.dir = 1
         end
-        self.shape:setSequence('running')
+        --self.shape:setSequence('running')
         self.shape:play()
         self.shape:setLinearVelocity(50, currentYV)
     else 
@@ -89,22 +93,25 @@ function player:moveRight(phase)  -- phase is boolean, true means start, false m
     end
 end
 
-function player:moveLeft(phase)  -- phase is boolean, true means start, false means stop
+function enemy:moveLeft(phase)  -- phase is boolean, true means start, false means stop
     if phase then
         if self.shape.dir == 1 then 
             self.shape:scale(-1,1)  --scale -1,1 causes flipping over y axis
             self.shape.dir = -1
         end
-        self.shape:setSequence('running')
+        --self.shape:setSequence('running')
         self.shape:play()
         self.shape:setLinearVelocity(-50, currentYV)
     else
         self.shape:setLinearVelocity(0, currentYV)
-        self.shape:setSequence('stand')
+        --self.shape:setSequence('stand')
     end
 end
 
-function player:jump()
+
+
+
+function enemy:jump()
     if self.shape.jumptoggle then
         self.shape.jumptoggle = false
         self.shape:setSequence('jump')
@@ -113,13 +120,13 @@ function player:jump()
     end
 end
 
-function player:shoot()
-    bullet = projectile:new({x=self.shape.x, y=self.shape.y, dir=self.shape.dir})  -- create a new bullet at player position
+function enemy:shoot()
+    bullet = projectile:new({x=self.x, y=self.y, dir=self.dir})  -- create a new bullet at enemy position
 end
 
-function player:keyboard_input(o)
-    self = o
 
+function enemy:keyboard_input(o)
+    self = o
     local function keyboard(event)  -- handle keyboard input for testing
         currentXV, currentYV = self.shape:getLinearVelocity()  -- global set the current x and y velocity
         local phase = phases[event.phase]
@@ -141,18 +148,6 @@ function player:keyboard_input(o)
 end
 
 
-return player
 
+return enemy
 
--- loop code to see all elements in table
--- for k,v in pairs(self) do
-            -- print(k)
-            -- end
-            -- print(event.other.tag)
-
--- TODO:
--- add health counter
--- add score? 
--- make better sprites
--- remove and delete items when scene is destroyed
--- add bad guys

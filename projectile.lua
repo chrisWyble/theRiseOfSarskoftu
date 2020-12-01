@@ -25,8 +25,8 @@ function projectile:spawn(o)
     function collisionHandler()
         self.shape:removeSelf()
         self.shape = nil
-	end
-	self.shape.collision = collisionHandler
+	  end
+	  self.shape.collision = collisionHandler
     self.shape:addEventListener('collision')
     
 end
