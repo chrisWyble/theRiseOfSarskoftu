@@ -3,6 +3,8 @@ local physics = require('physics')
 local platform = require('platform')
 local player = require('player')
 local enemy = require('enemy')
+local score = require( "score" )
+
 local scene = composer.newScene()
 
 ---------------------------------------------------------------------------------
@@ -45,12 +47,26 @@ function scene:create( event )
 
     pauseBtn:addEventListener( "tap", myTap )
 
+
+    local scoreText = score.init(
+{
+    fontSize = 20,
+    --font = "CoolCustomFont.ttf",
+    x = display.contentCenterX,
+    y = 30,
+    maxDigits = 7,
+    leadingZeros = true
+})
+
     guy = player:new({x=10, y=160})
     sceneGroup:insert(guy.shape)
 
     badGuy = enemy:new({x=100,y=120,w=20,h=20,health=4}) 
     sceneGroup:insert(badGuy.shape)
     
+
+
+
 end
 
 -- "scene:show()"
