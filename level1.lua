@@ -48,7 +48,7 @@ function scene:create( event )
     guy = player:new({x=10, y=160})
     sceneGroup:insert(guy.shape)
 
-    badGuy = enemy:new({x=100,y=120,w=20,h=20}) 
+    badGuy = enemy:new({x=100,y=120,w=20,h=20,health=4}) 
     sceneGroup:insert(badGuy.shape)
     
 end

@@ -40,7 +40,7 @@ function enemy:new (o)    --constructor
     o = o or {} 
     setmetatable(o, self)
     self.__index = self
-    if o.x and o.y and o.w and o.h then
+    if o.x and o.y and o.w and o.h and o.health then
         self:spawn(o)
     end
     return o;
@@ -48,12 +48,13 @@ end
 
 function enemy:spawn(o)
     self = o
-    self.shape = display.newRect(self.x, self.y, self.w,self.h);
+    self.shape = display.newRect(self.x, self.y, self.w,self.h,self.health);
     --self.shape = display.newSprite(running, running_sequence);
     --self.shape:setSequence('stand')
+    initHealth = self.health -- initial health
+    health = self.health
     self.shape.x = self.x
     self.shape.y = self.y
-    self.shape.r = self.r
     self.shape.dir = -1 -- 1 means enemy facing right ; -1 means enemy facing left
     self.shape.pp = self
     self.shape.tag = self.tag 
@@ -68,8 +69,11 @@ function enemy:spawn(o)
                 
             
             elseif event.other.tag == 'projectile' then  -- if hit by a projectile
-                self:removeSelf()
-                
+                if health == 1 then
+                    self:removeSelf()
+                end
+                health = health - 1
+                self:setFillColor(1-health/initHealth,(health)/initHealth,0)
             end 
         end
     end
