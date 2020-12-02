@@ -97,8 +97,13 @@ elseif ( phase == "did" ) then
     badGuy1 = enemy:new({x=100,y=120,w=20,h=20,health=4}) 
     entity_group:insert(badGuy1.shape)
     
+    timer.performWithDelay(1000, badGuy1:shoot(), 0, "shooter1")
+    timer.allowInterationsWithinFrame = true
+
     badGuy2 = enemy:new({x=200,y=50,w=20,h=30,health=4}) 
     entity_group:insert(badGuy2.shape)
+
+    timer.performWithDelay(1000, badGuy2:shoot(), 0, "shooter2")
     -- Called when the scene is now on screen.
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
@@ -127,7 +132,7 @@ if ( phase == "will" ) then
     end
 
 elseif ( phase == "did" ) then
-
+    
     platforms_group = display.newGroup()
     sceneGroup = display.newGroup()
     print('done')

@@ -72,7 +72,6 @@ function enemy:spawn(o)
     physics.addBody(self.shape, 'dynamic', {density=5, friction=0, bounce=0}) 
     self.shape.isFixedRotation = true
     self.shape:setLinearVelocity(-15, 0)
-
     local function collisionHandler(shape, event)   -- collision detection
         if event.phase == 'began' then 
             if event.other.tag == 'platform' then  -- if landed on a platform
@@ -112,6 +111,7 @@ function enemy:delete()
     self.shape:removeSelf()
 	self = nil
 end
+
 
 
 return enemy
