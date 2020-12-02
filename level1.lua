@@ -116,6 +116,7 @@ if ( phase == "will" ) then
     -- Example: stop timers, stop animation, stop audio, etc.
     
     for i = platforms_group.numChildren, 1, -1 do 
+
         child = platforms_group[i]
         child.pp:delete()
     end

@@ -76,9 +76,9 @@ if ( phase == "will" ) then
     pauseBtn:addEventListener( "tap", myTap )
 
     local floor = platform:new({x=display.contentCenterX, y=display.actualContentHeight, w=display.actualContentWidth, h=20})
-    local land1 = platform:new({x=100, y=135, w=80, h=5})
-    local land2 = platform:new({x=215, y=80, w=80, h=5})
-    local land3 = platform:new({x=70, y=40, w=70, h=5})
+    local land1 = platform:new({x=150, y=135, w=180, h=5})
+    local land2 = platform:new({x=150, y=165, w=5, h=60})
+    local land3 = platform:new({x=50, y=70, w=80, h=5})
     
     platforms_group:insert(floor.shape)
     platforms_group:insert(land1.shape)
@@ -96,8 +96,11 @@ elseif ( phase == "did" ) then
     badGuy1 = enemy:new({x=100,y=120,w=20,h=20,health=4}) 
     entity_group:insert(badGuy1.shape)
     
-    badGuy2 = enemy:new({x=200,y=50,w=20,h=30,health=4}) 
+    badGuy2 = enemy:new({x=260,y=150,w=20,h=30,health=4}) 
     entity_group:insert(badGuy2.shape)
+
+    badGuy3 = enemy:new({x=60,y=30,w=20,h=30,health=4}) 
+    entity_group:insert(badGuy3.shape)
     -- Called when the scene is now on screen.
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
