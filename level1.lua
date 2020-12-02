@@ -32,6 +32,7 @@ function scene:create( event )
     local land1 = platform:new({x=100, y=150, w=50, h=5})
     local land2 = platform:new({x=180, y=100, w=50, h=5})
     local land3 = platform:new({x=110, y=40, w=50, h=5})
+    
 
     sceneGroup:insert(pauseBtn)
     

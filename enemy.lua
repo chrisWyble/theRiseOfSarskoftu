@@ -66,29 +66,39 @@ function enemy:spawn(o)
     self.shape.pp = self
     self.shape.tag = self.tag 
     self.shape:setFillColor(0,1,0)
-    physics.addBody(self.shape, 'dynamic', {density=50, friction=100, bounce=1}) 
+    physics.addBody(self.shape, 'dynamic', {density=5, friction=0, bounce=0}) 
     self.shape.isFixedRotation = true
+    self.shape:setLinearVelocity(15, 0)
 
-    local function collisionHandler(self, event)   -- collision detection
+    local function collisionHandler(shape, event)   -- collision detection
         if event.phase == 'began' then 
+            print(event.other.tag)
             if event.other.tag == 'platform' then  -- if landed on a platform
-                self.jumptoggle = true
-                
+                self.shape.jumptoggle = true
             
+            elseif event.other.tag == 'sensor' then
+                currentXV, currentYV = self.shape:getLinearVelocity()
+                self.shape:setLinearVelocity(-currentXV, currentXY)
             elseif event.other.tag == 'projectile' then  -- if hit by a projectile
                 if health == 1 then
-                    self:removeSelf()
+                    self.shape:removeSelf()
                     score.add( 100 )
                     score.save()
-					audio.play(soundTable["death"]);
+                    audio.play(soundTable["death"]);
                 end
                 health = health - 1
-                self:setFillColor(1-health/initHealth,(health)/initHealth,0)
+                self.shape:setFillColor(1-health/initHealth,(health)/initHealth,0)
             end 
         end
     end
     self.shape.collision = collisionHandler
     self.shape:addEventListener('collision')
+
+    -- local function wander()
+    --     transition.to(self.shape, {time=2000, x=50, y=self.shape.y})
+    -- end
+
+    -- wandering = timer.performWithDelay(2000, wander, 0)
 end
 
 
@@ -135,8 +145,10 @@ function enemy:jump()
 end]]
 
 function enemy:shoot()
-    bullet = projectile:new({x=self.x, y=self.y, dir=self.dir})  -- create a new bullet at enemy position
-	audio.play(soundTable["shoot"]);
+    print('bang')
+                    
+    bullet = projectile:new({x=self.shape.x, y=self.shape.y, dir=self.shape.dir})  -- create a new bullet at enemy position
+	-- audio.play(soundTable["shoot"]);
 end
 
 

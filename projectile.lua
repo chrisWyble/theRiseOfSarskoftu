@@ -12,7 +12,7 @@ end
 
 function projectile:spawn(o)
     self = o
-    local xoffset = self.dir * 12
+    local xoffset = self.dir * 20
     self.shape = display.newRect(self.x + xoffset, self.y, 5, 5);
     self.shape.pp = self;  -- parent
     self.shape.tag = self.tag; 
@@ -20,6 +20,7 @@ function projectile:spawn(o)
     physics.addBody(self.shape, 'dynamic', {density=0, friction=0, bounce=1})
     self.shape.isBullet = true  -- bullet means collision detection occurs more frequently
     self.shape.gravityScale = 0  -- 0 gravity so that it does not fall
+    print('shoot')
     self.shape:setLinearVelocity(500*self.dir, 0)  -- velocity 500 in the direction player is facing
 
     function collisionHandler()
