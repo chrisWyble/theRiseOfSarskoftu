@@ -40,6 +40,11 @@ local running_sequence = {
 
 local phases = {down = true, up = false, began = true, ended = false}
 
+local soundTable = {
+	shoot = audio.loadSound("shoot.wav"),
+	death = audio.loadSound("death.wav")
+}
+
 function player:new (o)    --constructor
     o = o or {} 
     setmetatable(o, self)
@@ -123,6 +128,7 @@ end
 
 function player:shoot()
     bullet = projectile:new({x=self.shape.x, y=self.shape.y, dir=self.shape.dir})  -- create a new bullet at player position
+	audio.play(soundTable["shoot"]); -- play shooting audio
 end
 
 function player:keyboard_input(o)
