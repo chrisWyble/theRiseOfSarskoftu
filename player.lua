@@ -67,7 +67,7 @@ function player:new (o)    --constructor
     self.__index = self
     if o.x and o.y then
         self:spawn(o)
-        self:keyboard_input(o)
+        self:player_input(o)
     end
     return o;
 end
@@ -97,6 +97,10 @@ function player:spawn(o)
             elseif event.other.tag == 'enemy' then  -- if hit by a enemy
                 score.add(-10)
                 playerHealth.add(-1)
+                if playerHealth.get() == 0 then
+                    self:gameOver()
+                    self:delete()
+                end
             end 
         end
     end
@@ -151,7 +155,15 @@ function player:shoot()
 	audio.play(soundTable["shoot"]); -- play shooting audio
 end
 
-function player:keyboard_input(o)
+
+function player:gameOver()
+    finalScreen = display.newRect(0,0,2*display.contentWidth,display.contentWidth+125)
+    finalScreen:setFillColor(0,0,0) -- Completly dark
+    text = display.newText("GAME OVER", 150, 100, native.systemFont, 40)
+    text:setFillColor(1,1,1)
+end
+
+function player:player_input(o)
     self = o
     left = display.newRect(0,0,display.contentHeight,display.contentWidth+125)
     left:setFillColor(1,0,0,0.04) -- Completly transparent
