@@ -166,16 +166,16 @@ end
 function player:player_input(o)
     self = o
     left = display.newRect(0,0,display.contentHeight,display.contentWidth+125)
-    left:setFillColor(1,0,0,0.04) -- Completly transparent
+    left:setFillColor(1,0,0,0.03) -- Mostly transparent
 
     centerTop = display.newRect(display.contentWidth/2,0,display.contentWidth/3,display.contentHeight)
-    centerTop:setFillColor(0,1,0,0.04) -- Completly transparent
+    centerTop:setFillColor(0,1,0,0.03) -- Mostly transparent
 
     centerBottom = display.newRect(display.contentWidth/2,display.contentHeight,display.contentWidth/3,display.contentHeight)
-    centerBottom:setFillColor(0,0,1,0.04) -- Completly transparent
+    centerBottom:setFillColor(0,0,1,0.03) -- Mostly transparent
 
     right = display.newRect(display.contentWidth/1.2,0,display.contentWidth/3,display.contentWidth+125)
-    right:setFillColor(0,1,1,0.04) -- Completly transparent 
+    right:setFillColor(0,1,1,0.03) -- Mostly transparent 
 
     function keyboard(event)  -- handle keyboard input for testing
         currentXV, currentYV = self.shape:getLinearVelocity()  -- global set the current x and y velocity
