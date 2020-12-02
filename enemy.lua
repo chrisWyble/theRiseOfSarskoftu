@@ -91,8 +91,7 @@ function enemy:spawn(o)
                     audio.play(soundTable["death"]);
                 end
                 self.shape.health = self.shape.health - 1
-                -- self.shape:setFillColor(1-self.shape.health/self.shape.initHealth,(self.shape.health)/self.shape.initHealth,0)
-                self.shape:setFillColor(1,0.5,0.5)
+                self.shape:setFillColor(1-self.shape.health/self.shape.initHealth,(self.shape.health)/self.shape.initHealth,0)
             end 
         end
     end

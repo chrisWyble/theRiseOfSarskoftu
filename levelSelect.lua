@@ -38,9 +38,9 @@ function scene:create( event )
 
     for i=0, 3 do 
         box = display.newRect(startx + deltax*i, starty, squaureSize, squaureSize)
-        box:setFillColor( 0.3, 0.2, 0.25)
+        box:setFillColor(0.6, 0.3, 0.3)
         box.strokeWidth = 3
-        box:setStrokeColor(0.1,0.1,0.1)
+        box:setStrokeColor(0.15,0.15,0.15)
         box.num = i+1
         selectGroup:insert(box)
         text = display.newText(tostring(i+1), box.x, box.y, native.systemFont, 60)
