@@ -24,5 +24,13 @@ function platform:spawn(o)
 	physics.addBody(self.shape, 'static', {friction=1, bounce=0})
 end
 
+function platform:delete()
+	print('delete platform')
+	self.left_sensor:delete()
+	self.right_sensor:delete()
+	self.shape:removeSelf()
+	self = nil
+end
+
 return platform
 

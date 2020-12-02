@@ -154,7 +154,7 @@ end
 function player:keyboard_input(o)
     self = o
 
-    local function keyboard(event)  -- handle keyboard input for testing
+    function keyboard(event)  -- handle keyboard input for testing
         currentXV, currentYV = self.shape:getLinearVelocity()  -- global set the current x and y velocity
         local phase = phases[event.phase]
         if event.keyName == "w" and event.phase == 'down' then
@@ -172,6 +172,14 @@ function player:keyboard_input(o)
     end
 
     Runtime:addEventListener("key", keyboard)
+end
+
+
+function player:delete()
+    print('deleting player')
+    Runtime:removeEventListener("key", keyboard)
+    self.shape:removeSelf()
+	self = nil
 end
 
 

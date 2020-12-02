@@ -19,4 +19,9 @@ function sensor:spawn(o)
 	physics.addBody(self.shape, 'static', {isSensor=true})
 end
 
+function sensor:delete()
+    self.shape:removeSelf()
+	self = nil
+end
+
 return sensor

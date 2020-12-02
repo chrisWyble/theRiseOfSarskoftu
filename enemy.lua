@@ -99,55 +99,8 @@ function enemy:spawn(o)
     self.shape.collision = collisionHandler
     self.shape:addEventListener('collision')
 
-    -- local function wander()
-    --     transition.to(self.shape, {time=2000, x=50, y=self.shape.y})
-    -- end
-
-    -- wandering = timer.performWithDelay(2000, wander, 0)
 end
 
-
---[[ function enemy:moveRight(phase)  -- phase is boolean, true means start, false means stop
-    if phase then 
-        if self.shape.dir == -1 then 
-            self.shape:scale(-1,1)  --scale -1,1 causes flipping over y axis
-            self.shape.dir = 1
-        end
-        --self.shape:setSequence('running')
-        self.shape:play()
-        self.shape:setLinearVelocity(50, currentYV)
-    else 
-        self.shape:setLinearVelocity(0, currentYV)
-        self.shape:setSequence('stand')
-    end
-end
-
-function enemy:moveLeft(phase)  -- phase is boolean, true means start, false means stop
-    if phase then
-        if self.shape.dir == 1 then 
-            self.shape:scale(-1,1)  --scale -1,1 causes flipping over y axis
-            self.shape.dir = -1
-        end
-        --self.shape:setSequence('running')
-        self.shape:play()
-        self.shape:setLinearVelocity(-50, currentYV)
-    else
-        self.shape:setLinearVelocity(0, currentYV)
-        --self.shape:setSequence('stand')
-    end
-end 
-
-
-
-
-function enemy:jump()
-    if self.shape.jumptoggle then
-        self.shape.jumptoggle = false
-        self.shape:setSequence('jump')
-        self.shape:play()
-        self.shape:setLinearVelocity(currentXV, -200)
-    end
-end]]
 
 function enemy:shoot()
     bullet = projectile:new({x=self.shape.x, y=self.shape.y, dir=self.shape.dir})  -- create a new bullet at enemy position
@@ -155,28 +108,11 @@ function enemy:shoot()
 end
 
 
-function enemy:keyboard_input(o)
-    self = o
-    local function keyboard(event)  -- handle keyboard input for testing
-        currentXV, currentYV = self.shape:getLinearVelocity()  -- global set the current x and y velocity
-        --[[ local phase = phases[event.phase]
-        if event.keyName == "w" and event.phase == 'down' then
-            self:jump()
-        end
-        if event.keyName == "d" then
-            self:moveRight(phase)
-        end
-        if event.keyName == "a"  then
-            self:moveLeft(phase)
-        end
-        if event.keyName == "space" and event.phase == 'down' then
-            self:shoot()
-        end ]]
-    end
-
-    Runtime:addEventListener("key", keyboard)
+function enemy:delete()
+    print('deleting enemy')
+    self.shape:removeSelf()
+	self = nil
 end
-
 
 
 return enemy
