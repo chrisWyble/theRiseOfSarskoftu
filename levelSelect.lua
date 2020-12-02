@@ -14,84 +14,42 @@ local scene = composer.newScene()
 -- "scene:create()"
 function scene:create( event )
 
-local sceneGroup = self.view
+    local sceneGroup = self.view
 
--- Initialize the scene here.
--- Example: add display objects to "sceneGroup", add touch listeners, etc.
+    local background = display.newImage('virus_background.png')
+    background:toBack()
+    background:scale(0.3,0.3)
+    background.x = display.contentCenterX
+    background.y = display.contentCenterY
+    sceneGroup:insert(background)
 
-local selectGroup = display.newGroup()
+    local selectGroup = display.newGroup()
 
-squaureSize = math.sqrt(display.contentWidth*display.contentHeight)/5
-deltax = display.contentWidth/4
-startx = 0 + deltax/2
-starty = display.contentHeight/2
+    sceneGroup:insert(selectGroup)
 
-local myBox1 = display.newRect(startx, starty, squaureSize, squaureSize)
-local myBox2 = display.newRect(startx + deltax, starty, squaureSize, squaureSize)
-local myBox3 = display.newRect(startx + deltax*2, starty, squaureSize, squaureSize)
-local myBox4 = display.newRect(startx + deltax*3, starty, squaureSize, squaureSize)
+    function goToLevel(event)
+        composer.gotoScene("level"..event.target.num)
+    end
 
-myBox1:setFillColor( 0.2, 1, 1)
-myBox2:setFillColor( 0.2, 1, 1)
-myBox3:setFillColor( 0.2, 1, 1)
-myBox4:setFillColor( 0.2, 1, 1)
+    squaureSize = math.sqrt(display.contentWidth*display.contentHeight)/5
+    deltax = display.contentWidth/4
+    startx = 0 + deltax/2
+    starty = display.contentHeight/2
 
-myBox1.strokeWidth = 3
-myBox2.strokeWidth = 3
-myBox3.strokeWidth = 3
-myBox4.strokeWidth = 3
-
-myBox1:setStrokeColor(0.5,0.5,1)
-myBox2:setStrokeColor(0.5,0.5,1)
-myBox3:setStrokeColor(0.5,0.5,1)
-myBox4:setStrokeColor(0.5,0.5,1)
-
-selectGroup:insert(myBox1)
-selectGroup:insert(myBox2)
-selectGroup:insert(myBox3)
-selectGroup:insert(myBox4)
-
-local levelOneText = display.newText("1", myBox1.x, myBox1.y, native.systemFont, 60)
-local levelTwoText = display.newText("2", myBox2.x, myBox2.y, native.systemFont, 60)
-local levelThreeText = display.newText("3", myBox3.x, myBox3.y, native.systemFont, 60)
-local levelFourText = display.newText("4", myBox4.x, myBox4.y, native.systemFont, 60)
-
-levelOneText:setFillColor( 0.2, 0.5, 1 )
-levelTwoText:setFillColor( 0.2, 0.5, 1 )
-levelThreeText:setFillColor( 0.2, 0.5, 1)
-levelFourText:setFillColor( 0.2, 0.5, 1 )
-
-selectGroup:insert(levelOneText)
-selectGroup:insert(levelTwoText)
-selectGroup:insert(levelThreeText)
-selectGroup:insert(levelFourText)
-
-sceneGroup:insert(selectGroup)
-
-function goToLevel1( event ) 
-    composer.gotoScene("level1")
-end
-
-function goToLevel2( event ) 
-    composer.gotoScene("level2")
-end
-
-function goToLevel3( event ) 
-    composer.gotoScene("level3")
-end
-
-function goToLevel4( event ) 
-    composer.gotoScene("level4")
-end
-
-myBox1: addEventListener( "tap", goToLevel1 )
-myBox2: addEventListener( "tap", goToLevel2 )
-myBox3: addEventListener( "tap", goToLevel3 )
-myBox4: addEventListener( "tap", goToLevel4 )
+    for i=0, 3 do 
+        box = display.newRect(startx + deltax*i, starty, squaureSize, squaureSize)
+        box:setFillColor( 0.3, 0.2, 0.25)
+        box.strokeWidth = 3
+        box:setStrokeColor(0.1,0.1,0.1)
+        box.num = i+1
+        selectGroup:insert(box)
+        text = display.newText(tostring(i+1), box.x, box.y, native.systemFont, 60)
+        text:setFillColor(1,1,1)
+        selectGroup:insert(text)
+        box: addEventListener( "tap", goToLevel )
+    end
 
 end
-
-
 
 
 -- "scene:show()"
