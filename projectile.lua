@@ -20,7 +20,6 @@ function projectile:spawn(o)
     physics.addBody(self.shape, 'dynamic', {density=0, friction=0, bounce=1})
     self.shape.isBullet = true  -- bullet means collision detection occurs more frequently
     self.shape.gravityScale = 0  -- 0 gravity so that it does not fall
-    print('shoot')
     self.shape:setLinearVelocity(500*self.dir, 0)  -- velocity 500 in the direction player is facing
 
     function collisionHandler()

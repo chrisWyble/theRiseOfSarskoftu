@@ -4,36 +4,56 @@ local playerHealth = require('playerHealth')
 local player = {tag='player'}
 
 
+local white_cell_frames = {
+    frames = {
+        { x = 21, y = 719, width = 20, height = 47}, --frame 1 : walk
+        { x = 84, y = 719, width = 25, height = 47}, --frame 2 : walk
+        { x = 149, y = 719, width = 22, height = 46}, --frame 3 : walk
+        { x = 211, y = 719, width = 22, height = 46}, --frame 4 : walk
+        { x = 274, y = 719, width = 24, height = 47}, --frame 5 : walk
+        { x = 336, y = 719, width= 28, height = 46}, --frame 6 : walk
+        { x = 402, y = 719, width= 23, height= 47}, -- frame 7 : walk
+        { x = 467, y = 719, width= 22, height= 47}, -- frame 8 : walk
+        { x = 532, y = 719, width= 21, height= 47}, -- frame 9 : walk
+        { x = 81, y = 143, width= 30, height= 47}, -- frame 10 : jump 
+        { x = 17, y = 143, width= 30, height= 47}, -- frane 11 : jump / stand
+        { x = 206, y = 143, width= 36, height= 47}, -- frame 12 : jump
+        { x = 263, y = 143, width= 50, height= 47}, -- frame 13 : jump
+        { x = 328, y = 143, width= 48, height= 47}, -- frame 14 : jump
 
-local running_frames = {
-        frames = {
-            { x = 0, y = 0, width = 16, height = 32}, --frame 1 : standing
-            { x = 16, y = 0, width = 16, height = 32}, --frame 2 : run
-            { x = 32, y = 0, width = 16, height = 32}, --frame 3 : run
-            { x = 48, y = 0, width = 16, height = 32}, --frame 4 : run
-            { x = 113, y =0, width = 16, height = 32}, --frame 5 : jump
-            { x = 129, y = 0, width=16, height =32}, --frame 6 : jump
-            { x = 96, y =10, width=16, height=22} -- frame 7 : jump
-        }
     }
-local running = graphics.newImageSheet("mario.png", running_frames)
-local running_sequence = {
+}
+local white_cell_sheet = graphics.newImageSheet("white_cell_guy.png", white_cell_frames)
+
+-- local white_cell_frames = {
+--         frames = {
+--             { x = 0, y = 0, width = 16, height = 32}, --frame 1 : standing
+--             { x = 16, y = 0, width = 16, height = 32}, --frame 2 : run
+--             { x = 32, y = 0, width = 16, height = 32}, --frame 3 : run
+--             { x = 48, y = 0, width = 16, height = 32}, --frame 4 : run
+--             { x = 113, y =0, width = 16, height = 32}, --frame 5 : jump
+--             { x = 129, y = 0, width=16, height =32}, --frame 6 : jump
+--             { x = 96, y =10, width=16, height=22} -- frame 7 : jump
+--         }
+--     }
+-- local white_cell_sheet = graphics.newImageSheet("mario.png", white_cell_frames)
+local action_sequences = {
     {
         name = 'stand',
-        frames = {1},
+        frames = {11},
         time = 100,
         loopCount = 1
     },
     {
-        name = 'running',
-        frames = {2,3,4},
-        time = 600,
+        name = 'walk',
+        frames = {1,2,3,4,5,6,7,8,9},
+        time = 1200,
         loopCount = 0
     },
     {
         name = 'jump',
-        frames = {5,6,7},
-        time = 1000,
+        frames = {10,11,12,13,14},
+        time = 700,
         loopCount = 1
     }
 }
@@ -58,7 +78,7 @@ end
 
 function player:spawn(o)
     self = o
-    self.shape = display.newSprite(running, running_sequence);
+    self.shape = display.newSprite(white_cell_sheet, action_sequences);
     self.shape:setSequence('stand')
     self.shape.x = self.x
     self.shape.y = self.y
@@ -93,7 +113,7 @@ function player:moveRight(phase)  -- phase is boolean, true means start, false m
             self.shape:scale(-1,1)  --scale -1,1 causes flipping over y axis
             self.shape.dir = 1
         end
-        self.shape:setSequence('running')
+        self.shape:setSequence('walk')
         self.shape:play()
         self.shape:setLinearVelocity(50, currentYV)
     else 
@@ -108,7 +128,7 @@ function player:moveLeft(phase)  -- phase is boolean, true means start, false me
             self.shape:scale(-1,1)  --scale -1,1 causes flipping over y axis
             self.shape.dir = -1
         end
-        self.shape:setSequence('running')
+        self.shape:setSequence('walk')
         self.shape:play()
         self.shape:setLinearVelocity(-50, currentYV)
     else

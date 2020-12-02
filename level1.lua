@@ -29,7 +29,7 @@ function scene:create( event )
     physics.start()
 
     local floor = platform:new({x=display.contentCenterX, y=display.actualContentHeight, w=display.actualContentWidth, h=20})
-    local land1 = platform:new({x=100, y=150, w=50, h=5})
+    local land1 = platform:new({x=100, y=150, w=80, h=5})
     local land2 = platform:new({x=180, y=100, w=50, h=5})
     local land3 = platform:new({x=110, y=40, w=50, h=5})
     
@@ -76,9 +76,11 @@ function scene:create( event )
     guy = player:new({x=10, y=160})
     sceneGroup:insert(guy.shape)
 
-    badGuy = enemy:new({x=100,y=120,w=20,h=20,health=4}) 
-    sceneGroup:insert(badGuy.shape)
+    badGuy1 = enemy:new({x=100,y=120,w=20,h=20,health=4}) 
+    sceneGroup:insert(badGuy1.shape)
     
+    badGuy2 = enemy:new({x=200,y=90,w=20,h=30,health=4}) 
+    sceneGroup:insert(badGuy2.shape)
 
 
 
