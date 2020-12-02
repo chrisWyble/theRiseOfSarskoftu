@@ -15,11 +15,11 @@ local white_cell_frames = {
         { x = 402, y = 719, width= 23, height= 47}, -- frame 7 : walk
         { x = 467, y = 719, width= 22, height= 47}, -- frame 8 : walk
         { x = 532, y = 719, width= 21, height= 47}, -- frame 9 : walk
-        { x = 81, y = 143, width= 30, height= 47}, -- frame 10 : jump 
-        { x = 17, y = 143, width= 30, height= 47}, -- frane 11 : jump / stand
-        { x = 206, y = 143, width= 36, height= 47}, -- frame 12 : jump
-        { x = 263, y = 143, width= 50, height= 47}, -- frame 13 : jump
-        { x = 328, y = 143, width= 48, height= 47}, -- frame 14 : jump
+        { x = 81, y = 207, width= 30, height= 47}, -- frame 10 : jump 
+        { x = 17, y = 207, width= 30, height= 47}, -- frane 11 : jump / stand
+        { x = 206, y = 207, width= 36, height= 47}, -- frame 12 : jump
+        { x = 263, y = 207, width= 50, height= 47}, -- frame 13 : jump
+        { x = 328, y = 207, width= 48, height= 47}, -- frame 14 : jump
 
     }
 }

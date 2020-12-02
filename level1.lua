@@ -29,9 +29,9 @@ function scene:create( event )
     physics.start()
 
     local floor = platform:new({x=display.contentCenterX, y=display.actualContentHeight, w=display.actualContentWidth, h=20})
-    local land1 = platform:new({x=100, y=150, w=80, h=5})
-    local land2 = platform:new({x=180, y=100, w=50, h=5})
-    local land3 = platform:new({x=110, y=40, w=50, h=5})
+    local land1 = platform:new({x=100, y=135, w=80, h=5})
+    local land2 = platform:new({x=215, y=80, w=80, h=5})
+    local land3 = platform:new({x=70, y=40, w=70, h=5})
     
 
     sceneGroup:insert(pauseBtn)
