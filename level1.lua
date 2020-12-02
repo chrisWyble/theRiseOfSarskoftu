@@ -121,8 +121,11 @@ if ( phase == "will" ) then
     -- Insert code here to "pause" the scene.
     -- Example: stop timers, stop animation, stop audio, etc.
     
+    --[[ for i = scoring_group.numChildren, 1, -1 do 
+        child = scoring_group[i]
+        child.isVisible = false
+    end ]]
     for i = platforms_group.numChildren, 1, -1 do 
-
         child = platforms_group[i]
         child.pp:delete()
     end

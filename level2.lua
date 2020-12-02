@@ -27,7 +27,7 @@ function scene:create( event )
 
     physics.start()
 
-    local scoreText = score.init(
+    --[[ local scoreText = score.init(
 {
     fontSize = 10,
     --font = "CoolCustomFont.ttf",
@@ -36,7 +36,7 @@ function scene:create( event )
     maxDigits = 4,
     leadingZeros = true
 })
-    scoring_group:insert(scoreText)
+    scoring_group:insert(scoreText) 
 
 
     local playerHealthText = playerHealth.init(
@@ -49,7 +49,7 @@ function scene:create( event )
     leadingZeros = true
 })
     scoring_group:insert(playerHealthText)
-
+]]
     
 end
 
@@ -87,7 +87,7 @@ if ( phase == "will" ) then
     platforms_group:insert(land3.shape)
 
     sceneGroup:insert(platforms_group)
-
+    
     -- Called when the scene is still off screen (but is about to come on screen).
 elseif ( phase == "did" ) then
     
