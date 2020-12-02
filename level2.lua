@@ -66,14 +66,15 @@ if ( phase == "will" ) then
     background.y = display.contentCenterY
     sceneGroup:insert(background)
     
-    squaureSize = math.sqrt(display.contentWidth*display.contentHeight)/10
-    local pauseBtn = display.newRect(display.contentWidth, 10, squaureSize, squaureSize)
-    
-    sceneGroup:insert(pauseBtn)
+    local menuBtn = display.newImage('virus_button.png')
+    menuBtn:scale(0.05, 0.05)
+    menuBtn.x = display.contentWidth - 10
+    menuBtn.y = 20
+    sceneGroup:insert(menuBtn)
     function myTap( event ) 
         composer.gotoScene("levelSelect")
     end
-    pauseBtn:addEventListener( "tap", myTap )
+    menuBtn:addEventListener( "tap", myTap )
 
     local floor = platform:new({x=display.contentCenterX, y=display.actualContentHeight, w=display.actualContentWidth, h=20})
     local land1 = platform:new({x=150, y=135, w=180, h=5})

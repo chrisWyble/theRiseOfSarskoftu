@@ -78,7 +78,7 @@ function enemy:spawn(o)
             if event.other.tag == 'platform' then  -- if landed on a platform
                 self.shape.jumptoggle = true
             
-            elseif event.other.tag == 'sensor' then
+            elseif event.other.tag == 'sensor' or event.other.tag == 'enemy' then
                 currentXV, currentYV = self.shape:getLinearVelocity()
                 self.shape:setLinearVelocity(-currentXV, currentXY)
                 self.shape:scale(-1,1)
