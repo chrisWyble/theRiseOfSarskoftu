@@ -157,7 +157,7 @@ end
 
 
 function player:gameOver()
-    finalScreen = display.newRect(0,0,2*display.contentWidth,display.contentWidth+125)
+    finalScreen = display.newRect(0,0,2*display.contentWidth+60,display.contentWidth+125)
     finalScreen:setFillColor(0,0,0) -- Completly dark
     text = display.newText("GAME OVER", 150, 100, native.systemFont, 40)
     text:setFillColor(1,1,1)
@@ -174,7 +174,7 @@ function player:player_input(o)
     centerBottom = display.newRect(display.contentWidth/2,display.contentHeight,display.contentWidth/3,display.contentHeight)
     centerBottom:setFillColor(0,0,1,0.03) -- Mostly transparent
 
-    right = display.newRect(display.contentWidth/1.2,0,display.contentWidth/3,display.contentWidth+125)
+    right = display.newRect(display.contentWidth/1.2,0,(display.contentWidth/3)+60,display.contentWidth+125)
     right:setFillColor(0,1,1,0.03) -- Mostly transparent 
 
     function keyboard(event)  -- handle keyboard input for testing
