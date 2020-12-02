@@ -38,6 +38,11 @@ local running_sequence = {
 
 local phases = {down = true, up = false, began = true, ended = false}
 
+local soundTable = {
+	shoot = audio.loadSound("shoot.wav"),
+	death = audio.loadSound("death.wav")
+}
+
 function enemy:new (o)    --constructor
     o = o or {} 
     setmetatable(o, self)
@@ -75,6 +80,7 @@ function enemy:spawn(o)
                     self:removeSelf()
                     score.add( 100 )
                     score.save()
+					audio.play(soundTable["death"]);
                 end
                 health = health - 1
                 self:setFillColor(1-health/initHealth,(health)/initHealth,0)
@@ -130,6 +136,7 @@ end]]
 
 function enemy:shoot()
     bullet = projectile:new({x=self.x, y=self.y, dir=self.dir})  -- create a new bullet at enemy position
+	audio.play(soundTable["shoot"]);
 end
 
 
