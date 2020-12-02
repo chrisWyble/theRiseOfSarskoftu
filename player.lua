@@ -20,7 +20,9 @@ local white_cell_frames = {
         { x = 206, y = 207, width= 36, height= 47}, -- frame 12 : jump
         { x = 263, y = 207, width= 50, height= 47}, -- frame 13 : jump
         { x = 328, y = 207, width= 48, height= 47}, -- frame 14 : jump
-
+        { x = 80, y = 463, width= 30, height= 47}, -- frame 15 : shoot
+        { x = 465, y = 463, width= 25, height= 47}, -- frame 16 : shoot
+        { x = 330, y = 463, width= 42, height= 47}, -- frame 17 : shoot
     }
 }
 local white_cell_sheet = graphics.newImageSheet("white_cell_guy.png", white_cell_frames)
@@ -55,9 +57,15 @@ local action_sequences = {
         frames = {10,11,12,13,14},
         time = 700,
         loopCount = 1
+    },
+    {
+        name = 'shoot',
+        frames = {15,16,17,17},
+        time = 300,
+        loopCount = 1
     }
 }
-
+currentXV, currentYV = 0, 0
 local phases = {down = true, up = false, began = true, ended = false}
 
 local soundTable = {
@@ -88,10 +96,12 @@ function player:spawn(o)
     physics.addBody(self.shape, 'dynamic', {density=10, friction=0.0, bounce=0}) --friction is 0 so that velocity is constant without needing updated, projectiles have density of 0 so they have minimal impact on player sliding
     self.shape.isFixedRotation = true
 
-    local function collisionHandler(self, event)   -- collision detection
+    local function collisionHandler(shape, event)   -- collision detection
         if event.phase == 'began' then 
             if event.other.tag == 'platform' then  -- if landed on a platform
-                self.jumptoggle = true
+                self.shape.jumptoggle = true
+                -- self.shape:setSequence('stand')
+                -- self.shape:play()
             
             elseif event.other.tag == 'projectile' then  -- if hit by a projectile
                 -- get shot
@@ -147,6 +157,8 @@ function player:jump()
 end
 
 function player:shoot()
+    self.shape:setSequence('shoot')
+    self.shape:play()
     bullet = projectile:new({x=self.shape.x, y=self.shape.y, dir=self.shape.dir})  -- create a new bullet at player position
 	audio.play(soundTable["shoot"]); -- play shooting audio
 end
