@@ -153,6 +153,17 @@ end
 
 function player:keyboard_input(o)
     self = o
+    left = display.newRect(0,0,display.contentHeight,display.contentWidth+125)
+    left:setFillColor(1,0,0,0.04) -- Completly transparent
+
+    centerTop = display.newRect(display.contentWidth/2,0,display.contentWidth/3,display.contentHeight)
+    centerTop:setFillColor(0,1,0,0.04) -- Completly transparent
+
+    centerBottom = display.newRect(display.contentWidth/2,display.contentHeight,display.contentWidth/3,display.contentHeight)
+    centerBottom:setFillColor(0,0,1,0.04) -- Completly transparent
+
+    right = display.newRect(display.contentWidth/1.2,0,display.contentWidth/3,display.contentWidth+125)
+    right:setFillColor(0,1,1,0.04) -- Completly transparent 
 
     function keyboard(event)  -- handle keyboard input for testing
         currentXV, currentYV = self.shape:getLinearVelocity()  -- global set the current x and y velocity
@@ -171,13 +182,40 @@ function player:keyboard_input(o)
         end
     end
 
+    function jump(event)
+        currentXV, currentYV = self.shape:getLinearVelocity()
+        self:jump()
+    end
+
+    function moveLeft(event)
+        phase = phases[event.phase]
+        self:moveLeft(phase)
+    end
+
+    function moveRight(event)
+        phase = phases[event.phase]
+        self:moveRight(phase)
+    end
+
+    function shoot(event)
+        currentXV, currentYV = self.shape:getLinearVelocity()
+        self:shoot()
+    end
     Runtime:addEventListener("key", keyboard)
+    left:addEventListener("touch", moveLeft)
+    centerTop:addEventListener("touch", jump)
+    centerBottom:addEventListener("tap",shoot)
+    right:addEventListener("touch",moveRight)
 end
 
 
 function player:delete()
     print('deleting player')
     Runtime:removeEventListener("key", keyboard)
+    left:removeEventListener("touch", moveLeft)
+    centerTop:removeEventListener("touch", jump)
+    centerBottom:removeEventListener("tap",shoot)
+    right:removeEventListener("touch",moveRight)
     self.shape:removeSelf()
 	self = nil
 end

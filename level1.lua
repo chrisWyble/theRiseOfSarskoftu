@@ -98,7 +98,7 @@ elseif ( phase == "did" ) then
     entity_group:insert(badGuy1.shape)
     
     timer.performWithDelay(1000, badGuy1:shoot(), 0, "shooter1")
-    timer.allowInterationsWithinFrame = true
+    --timer.allowInterationsWithinFrame = true
 
     badGuy2 = enemy:new({x=200,y=50,w=20,h=30,health=4}) 
     entity_group:insert(badGuy2.shape)
