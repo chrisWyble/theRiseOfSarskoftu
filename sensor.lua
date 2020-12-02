@@ -15,7 +15,7 @@ function sensor:spawn(o)
 	self.shape = display.newRect(self.x, self.y, self.w, self.h);
 	self.shape.pp = self;  -- parent
 	self.shape.tag = self.tag; 
-	self.shape:setFillColor(1,1,1)
+	self.shape:setFillColor(1,1,1, 1) -- 
 	physics.addBody(self.shape, 'static', {isSensor=true})
 end
 

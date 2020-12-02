@@ -23,31 +23,12 @@ function scene:create( event )
     local sceneGroup = self.view
     stageGroup = display.newGroup()
 
-    squaureSize = math.sqrt(display.contentWidth*display.contentHeight)/10
-    local pauseBtn = display.newRect(display.contentWidth, 10, squaureSize, squaureSize)
     
     physics.start()
 
-    local floor = platform:new({x=display.contentCenterX, y=display.actualContentHeight, w=display.actualContentWidth, h=20})
-    local land1 = platform:new({x=100, y=135, w=80, h=5})
-    local land2 = platform:new({x=215, y=80, w=80, h=5})
-    local land3 = platform:new({x=70, y=40, w=70, h=5})
     
 
-    sceneGroup:insert(pauseBtn)
     
-    stageGroup:insert(floor.shape)
-    stageGroup:insert(land1.shape)
-    stageGroup:insert(land2.shape)
-    stageGroup:insert(land3.shape)
-
-    sceneGroup:insert(stageGroup)
-
-    function myTap( event ) 
-        composer.gotoScene("levelSelect")
-    end
-
-    pauseBtn:addEventListener( "tap", myTap )
 
 
     local scoreText = score.init(
@@ -73,14 +54,7 @@ function scene:create( event )
 })
     sceneGroup:insert(playerHealthText)
 
-    guy = player:new({x=10, y=160})
-    sceneGroup:insert(guy.shape)
-
-    badGuy1 = enemy:new({x=100,y=120,w=20,h=20,health=4}) 
-    sceneGroup:insert(badGuy1.shape)
     
-    badGuy2 = enemy:new({x=200,y=50,w=20,h=30,health=4}) 
-    sceneGroup:insert(badGuy2.shape)
 
 
 
@@ -93,9 +67,48 @@ local sceneGroup = self.view
 local phase = event.phase
 
 if ( phase == "will" ) then
+    local background = display.newImage('vein_background.png')
+    background:toBack()
+    background.x = display.contentCenterX
+    background.y = display.contentCenterY
+    sceneGroup:insert(background)
+    
+    squaureSize = math.sqrt(display.contentWidth*display.contentHeight)/10
+    local pauseBtn = display.newRect(display.contentWidth, 10, squaureSize, squaureSize)
+    
+    sceneGroup:insert(pauseBtn)
+    function myTap( event ) 
+        composer.gotoScene("levelSelect")
+    end
+    pauseBtn:addEventListener( "tap", myTap )
+
+    local floor = platform:new({x=display.contentCenterX, y=display.actualContentHeight, w=display.actualContentWidth, h=20})
+    local land1 = platform:new({x=100, y=135, w=80, h=5})
+    local land2 = platform:new({x=215, y=80, w=80, h=5})
+    local land3 = platform:new({x=70, y=40, w=70, h=5})
+    
+    
+    
+    stageGroup:insert(floor.shape)
+    stageGroup:insert(land1.shape)
+    stageGroup:insert(land2.shape)
+    stageGroup:insert(land3.shape)
+
+    sceneGroup:insert(stageGroup)
+
+    
     -- Called when the scene is still off screen (but is about to come on screen).
 elseif ( phase == "did" ) then
+    
 
+    guy = player:new({x=10, y=160})
+    sceneGroup:insert(guy.shape)
+
+    badGuy1 = enemy:new({x=100,y=120,w=20,h=20,health=4}) 
+    sceneGroup:insert(badGuy1.shape)
+    
+    badGuy2 = enemy:new({x=200,y=50,w=20,h=30,health=4}) 
+    sceneGroup:insert(badGuy2.shape)
     -- Called when the scene is now on screen.
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.

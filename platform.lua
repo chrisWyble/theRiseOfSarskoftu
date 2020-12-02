@@ -16,7 +16,7 @@ function platform:spawn(o)
 	self.shape = display.newRect(self.x, self.y, self.w, self.h);
 	self.shape.pp = self;  -- parent
 	self.shape.tag = self.tag; 
-	self.shape:setFillColor(0.1,0.5,0)
+	self.shape:setFillColor(0.7,0.3,0.3)
 	local left_bound = self.x - self.w/2
 	local right_bound = self.x + self.w/2
 	self.left_sensor = sensor:new({x=left_bound, y=self.y, w=5, h=self.h})

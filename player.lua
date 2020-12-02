@@ -27,18 +27,6 @@ local white_cell_frames = {
 }
 local white_cell_sheet = graphics.newImageSheet("white_cell_guy.png", white_cell_frames)
 
--- local white_cell_frames = {
---         frames = {
---             { x = 0, y = 0, width = 16, height = 32}, --frame 1 : standing
---             { x = 16, y = 0, width = 16, height = 32}, --frame 2 : run
---             { x = 32, y = 0, width = 16, height = 32}, --frame 3 : run
---             { x = 48, y = 0, width = 16, height = 32}, --frame 4 : run
---             { x = 113, y =0, width = 16, height = 32}, --frame 5 : jump
---             { x = 129, y = 0, width=16, height =32}, --frame 6 : jump
---             { x = 96, y =10, width=16, height=22} -- frame 7 : jump
---         }
---     }
--- local white_cell_sheet = graphics.newImageSheet("mario.png", white_cell_frames)
 local action_sequences = {
     {
         name = 'stand',
