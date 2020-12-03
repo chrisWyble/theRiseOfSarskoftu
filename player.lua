@@ -161,6 +161,10 @@ function player:gameOver()
     finalScreen:setFillColor(0,0,0) -- Completly dark
     text = display.newText("GAME OVER", 150, 100, native.systemFont, 40)
     text:setFillColor(1,1,1)
+	audio.stop(1)
+	local music
+	music = audio.loadStream("Game_Over.ogg")
+	audio.play(music, {channel=1, loops=0})
 end
 
 function player:player_input(o)
