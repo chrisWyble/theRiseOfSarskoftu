@@ -166,16 +166,16 @@ end
 function player:player_input(o)
     self = o
     left = display.newRect(0,0,display.contentHeight,display.contentWidth+125)
-    left:setFillColor(1,0,0,0.01) -- Mostly transparent
+    left:setFillColor(1,0,0,0) -- Mostly transparent
 
     centerTop = display.newRect(display.contentWidth/2,0,display.contentWidth/3,display.contentHeight)
-    centerTop:setFillColor(0,1,0,0.01) -- Mostly transparent
+    centerTop:setFillColor(0,1,0,0) -- Mostly transparent
 
     centerBottom = display.newRect(display.contentWidth/2,display.contentHeight,display.contentWidth/3,display.contentHeight)
-    centerBottom:setFillColor(0,0,1,0.01) -- Mostly transparent
+    centerBottom:setFillColor(0,0,1,0) -- Mostly transparent
 
     right = display.newRect(display.contentWidth/1.2,0,(display.contentWidth/3)+60,display.contentWidth+125)
-    right:setFillColor(0,1,1,0.01) -- Mostly transparent 
+    right:setFillColor(0,1,1,0) -- Mostly transparent 
 
     function keyboard(event)  -- handle keyboard input for testing
         currentXV, currentYV = self.shape:getLinearVelocity()  -- global set the current x and y velocity
@@ -223,6 +223,10 @@ end
 
 function player:delete()
     print('deleting player')
+    right:removeSelf()
+    left:removeSelf()
+    centerTop:removeSelf()
+    centerBottom:removeSelf()
     Runtime:removeEventListener("key", keyboard)
     left:removeEventListener("touch", moveLeft)
     centerTop:removeEventListener("touch", jump)
