@@ -5,6 +5,7 @@ local player = require('player')
 local enemy = require('enemy')
 local score = require( "score" )
 local playerHealth = require('playerHealth')
+local musicTrack
 
 local scene = composer.newScene()
 
@@ -50,6 +51,8 @@ function scene:create( event )
 })
     scoring_group:insert(playerHealthText)
 ]]
+
+	musicTrack = audio.loadStream("Background.mp3")
     
 end
 
@@ -102,6 +105,8 @@ elseif ( phase == "did" ) then
 
     badGuy3 = enemy:new({x=60,y=30,w=20,h=30,health=4}) 
     entity_group:insert(badGuy3.shape)
+	
+	audio.play(musicTrack, {channel=1, loops=-1})
     -- Called when the scene is now on screen.
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
@@ -132,6 +137,7 @@ elseif ( phase == "did" ) then
 
     platforms_group = display.newGroup()
     sceneGroup = display.newGroup()
+	audio.stop( 1 )
     print('done')
     -- Called immediately after scene goes off screen.
 end
@@ -144,6 +150,7 @@ local sceneGroup = self.view
 
 sceneGroup:removeSelf()
 sceneGroup = nil
+audio.dispose( musicTrack )
 -- Called prior to the removal of scene's view ("sceneGroup").
 -- Insert code here to clean up the scene.
 -- Example: remove display objects, save state, etc.

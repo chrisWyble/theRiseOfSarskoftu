@@ -1,5 +1,6 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
+local musicTrack
 
 ---------------------------------------------------------------------------------
 -- All code outside of the listener functions will only be executed ONCE
@@ -17,6 +18,7 @@ local sceneGroup = self.view
 
 -- Initialize the scene here.
 -- Example: add display objects to "sceneGroup", add touch listeners, etc.
+	musicTrack = audio.loadStream("Credits.mp3")
 end
 
 -- "scene:show()"
@@ -31,6 +33,7 @@ elseif ( phase == "did" ) then
     -- Called when the scene is now on screen.
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
+	audio.play(musicTrack, {channel = 1, loops=-1})
 end
 end
 
@@ -46,6 +49,7 @@ if ( phase == "will" ) then
     -- Example: stop timers, stop animation, stop audio, etc.
 elseif ( phase == "did" ) then
     -- Called immediately after scene goes off screen.
+	audio.stop(1)
 end
 end
 
@@ -57,6 +61,7 @@ local sceneGroup = self.view
 -- Called prior to the removal of scene's view ("sceneGroup").
 -- Insert code here to clean up the scene.
 -- Example: remove display objects, save state, etc.
+	audio.dispose(musicTrack)
 end
 
 ---------------------------------------------------------------------------------
