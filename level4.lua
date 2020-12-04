@@ -6,6 +6,7 @@ local enemy = require('enemy')
 local score = require( "score" )
 local playerHealth = require('playerHealth')
 local musicTrack
+nextLevel = "credits"
 
 local scene = composer.newScene()
 
@@ -162,5 +163,7 @@ scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 
 ---------------------------------------------------------------------------------
+
+
 
 return scene

@@ -88,6 +88,7 @@ function enemy:spawn(o)
                     score.add( 100 )
                     score.save()
                     audio.play(soundTable["death"]);
+					numEnemies = numEnemies - 1
                 end
                 self.shape.health = self.shape.health - 1
                 self.shape:setFillColor(1-self.shape.health/self.shape.initHealth,(self.shape.health)/self.shape.initHealth,0)
@@ -96,7 +97,7 @@ function enemy:spawn(o)
     end
     self.shape.collision = collisionHandler
     self.shape:addEventListener('collision')
-
+	numEnemies = numEnemies + 1
 end
 
 
