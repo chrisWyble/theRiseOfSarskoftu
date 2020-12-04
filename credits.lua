@@ -16,6 +16,11 @@ function scene:create( event )
 
 local sceneGroup = self.view
 
+    finalScreen = display.newRect(0,0,2*display.contentWidth+60,display.contentWidth+125)
+    finalScreen:setFillColor(0,0,0) -- Completly dark
+    text = display.newText("YOU WIN", 150, 100, native.systemFont, 40)
+    text:setFillColor(1,1,1)
+
 -- Initialize the scene here.
 -- Example: add display objects to "sceneGroup", add touch listeners, etc.
 	musicTrack = audio.loadStream("Credits.mp3")
